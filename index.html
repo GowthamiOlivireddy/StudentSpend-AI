@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentSpend AI | AI-Powered Financial Wellness Assistant</title>
+    <meta name="description" content="StudentSpend AI — An AI-powered financial wellness assistant for college students featuring live budget tracking, minimum balance protection, allowance survival intelligence, and an interactive financial coach.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+</head>
+<body>
+
+    <!-- =========================================================================
+         VIEW 1: STUDENT LOGIN PAGE (Demo Frontend Authentication)
+         ========================================================================= -->
+    <main id="login-view" class="auth-view-wrapper">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Branding Header -->
+                <div class="auth-header">
+                    <div class="auth-brand-icon">🎓</div>
+                    <h1 class="auth-title">StudentSpend AI</h1>
+                    <p class="auth-subtitle">AI-Powered Financial Wellness & Budgeting for Students</p>
+                </div>
+
+             
+
+                <!-- General Alert Message -->
+                <div id="login-alert" class="alert-box alert-danger hidden" role="alert">
+                    <span class="alert-icon">⚠️</span>
+                    <span id="login-alert-text" class="alert-text">Invalid login credentials.</span>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form" novalidate>
+                    <!-- Identifier Field -->
+                    <div class="form-group" id="group-login-identifier">
+                        <label for="login-identifier" class="form-label">
+                            Email or Username <span class="required-star">*</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">👤</span>
+                            <input 
+                                type="text" 
+                                id="login-identifier" 
+                                class="form-input" 
+                                placeholder="e.g. student@college.edu or alex" 
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+                        <p class="error-message" id="error-login-identifier" role="alert"></p>
+                    </div>
+
+                    <!-- Password Field with Show/Hide Toggle -->
+                    <div class="form-group" id="group-login-password">
+                        <label for="login-password" class="form-label">
+                            Password <span class="required-star">*</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input 
+                                type="password" 
+                                id="login-password" 
+                                class="form-input password-input" 
+                                placeholder="Enter your password (min 4 characters)" 
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button 
+                                type="button" 
+                                id="btn-toggle-password" 
+                                class="btn-password-toggle" 
+                                title="Toggle password visibility" 
+                                aria-label="Show password"
+                            >
+                                <span id="toggle-password-icon">👁️</span>
+                            </button>
+                        </div>
+                        <p class="error-message" id="error-login-password" role="alert"></p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-block" id="btn-login-submit">
+                            <span>Sign In to Dashboard</span> <span>➔</span>
+                        </button>
+                    </div>
+
+                    <!-- Demo Helper Button -->
+                    <div class="auth-demo-helper">
+                        <button type="button" id="btn-quick-demo" class="btn btn-outline btn-block btn-sm">
+                            💡 Use Demo Account (student@college.edu)
+                        </button>
+                    </div>
+                </form>
+                
+<!-- Create Account Section -->
+<div class="auth-register-section">
+    <p>Don't have an account?</p>
+    <button type="button" id="btn-show-register"
+            class="btn btn-outline btn-block">
+        Create Account
+    </button>
+</div>
+
+<!-- Registration Form -->
+<form id="register-form" class="auth-form hidden" novalidate>
+    <h2>Create Your Account</h2>
+
+    <div class="form-group">
+        <label for="register-name" class="form-label">Full Name</label>
+        <input type="text" id="register-name" class="form-input"
+               placeholder="Enter your full name" maxlength="100" required>
+    </div>
+
+    <div class="form-group">
+        <label for="register-email" class="form-label">Email</label>
+        <input type="email" id="register-email" class="form-input"
+               placeholder="Enter your email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="register-password" class="form-label">Password</label>
+        <input type="password" id="register-password" class="form-input"
+               placeholder="At least 8 characters" minlength="8" required>
+    </div>
+
+    <div class="form-group">
+        <label for="register-confirm-password" class="form-label">
+            Confirm Password
+        </label>
+        <input type="password" id="register-confirm-password"
+               class="form-input" placeholder="Re-enter your password"
+               minlength="8" required>
+    </div>
+
+    <div id="register-alert" class="alert-box alert-danger hidden" role="alert">
+        <span id="register-alert-text" class="alert-text"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">
+        Create Account
+    </button>
+
+    <p>
+        Already have an account?
+        <button type="button" id="btn-show-login" class="btn btn-outline btn-sm">
+            Sign In
+        </button>
+    </p>
+</form>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- =========================================================================
+         VIEW 2: STUDENT FINANCIAL DASHBOARD
+         ========================================================================= -->
+    <div id="dashboard-view" class="dashboard-wrapper hidden">
+        <!-- Top Navigation Header -->
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <div class="brand-icon">🎓</div>
+                    <div class="brand-text">
+                        <h1>StudentSpend AI</h1>
+                        <p class="brand-subtitle">AI Financial Wellness Assistant for Students</p>
+                    </div>
+                </div>
+
+                <div class="nav-actions">
+                    <div class="user-chip" id="user-chip" title="Current student account">
+                        <span class="user-chip-avatar">👨‍🎓</span>
+                        <span class="user-chip-name" id="user-display-name">student@college.edu</span>
+                    </div>
+                    <span class="badge-currency" title="Application Currency">₹ INR</span>
+                    <button id="btn-logout" class="btn btn-outline btn-sm" title="Log out from demo session">
+                        <span>🚪</span> Log Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-container">
+            <!-- ALERTS SECTION: Low Balance & Overspending Warnings -->
+            <!-- 1. Low Balance Alert Banner (Warning Amber/Gold) -->
+            <div id="low-balance-alert" class="alert-box alert-low-balance hidden" role="alert">
+                <div class="alert-low-balance-icon">⚠️</div>
+                <div class="alert-low-balance-content">
+                    <strong class="alert-low-balance-title">Low Balance Alert!</strong>
+                    <p id="low-balance-text">Your remaining balance has reached or dropped below your minimum balance limit.</p>
+                </div>
+            </div>
+
+            <!-- 2. Overspending Alert Banner (Danger Red) -->
+            <div id="overspending-alert" class="alert-box alert-overspending hidden" role="alert">
+                <div class="alert-overspending-icon">🚨</div>
+                <div class="alert-overspending-content">
+                    <strong class="alert-overspending-title">Budget Warning: You have exceeded your available money!</strong>
+                    <p id="overspending-text">Your total expenses exceed your available budget. Consider pausing discretionary purchases.</p>
+                </div>
+            </div>
+
+            <!-- SECTION A & MIN BALANCE: Allowance and Safety Threshold Controls -->
+            <section class="finance-overview-section" aria-label="Financial Overview">
+                <div class="budget-controls-grid">
+                    <!-- Control Card 1: Available Money -->
+                    <div class="threshold-card available-money-card">
+                        <div class="threshold-card-header">
+                            <div class="card-icon-round icon-blue">💵</div>
+                            <div>
+                                <h2 class="section-card-title">A. Available Money</h2>
+                                <p class="section-card-subtitle">Total spending allowance for the term</p>
+                            </div>
+                        </div>
+
+                        <form id="available-money-form" class="threshold-form" novalidate>
+                            <div class="available-input-group">
+                                <div class="input-with-icon">
+                                    <span class="input-icon currency-prefix">₹</span>
+                                    <input 
+                                        type="number" 
+                                        id="input-available-money" 
+                                        class="form-input" 
+                                        placeholder="e.g. 5000" 
+                                        min="0" 
+                                        step="0.01"
+                                        required
+                                    >
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btn-update-available">
+                                    Update Amount
+                                </button>
+                            </div>
+                            <p class="error-message" id="error-available-money" role="alert"></p>
+                        </form>
+                    </div>
+
+                    <!-- Control Card 2: Minimum Balance Alert Limit -->
+                    <div class="threshold-card min-balance-card" id="min-balance-section">
+                        <div class="threshold-card-header">
+                            <div class="card-icon-round icon-amber">🛡️</div>
+                            <div>
+                                <div class="title-with-badge">
+                                    <h2 class="section-card-title">Minimum Balance Alert</h2>
+                                    <span id="min-balance-status-badge" class="badge-buffer">Limit: ₹0.00</span>
+                                </div>
+                                <p class="section-card-subtitle">Safety buffer limit to warn against low funds</p>
+                            </div>
+                        </div>
+
+                        <form id="min-balance-form" class="threshold-form" novalidate>
+                            <div class="available-input-group">
+                                <div class="input-with-icon">
+                                    <span class="input-icon currency-prefix">₹</span>
+                                    <input 
+                                        type="number" 
+                                        id="input-min-balance" 
+                                        class="form-input" 
+                                        placeholder="e.g. 1500" 
+                                        min="0" 
+                                        step="0.01"
+                                        required
+                                    >
+                                </div>
+                                <button type="submit" class="btn btn-warning" id="btn-update-min-balance">
+                                    Update Limit
+                                </button>
+                                <button type="button" class="btn btn-outline-notif" id="btn-toggle-notifications" title="Toggle browser desktop notifications">
+                                    <span id="notif-btn-icon">🔔</span> <span id="notif-btn-text">Enable Alerts</span>
+                                </button>
+                            </div>
+                            <p class="error-message" id="error-min-balance" role="alert"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Row 2: Three Prominent Summary Cards -->
+                <div class="summary-cards-grid">
+                    <!-- Summary Card 1: Total Available Money -->
+                    <div class="summary-card card-available">
+                        <div class="summary-icon">🏦</div>
+                        <div class="summary-info">
+                            <span class="summary-label">1. Total Available Money</span>
+                            <h3 class="summary-value" id="kpi-available-money">₹0.00</h3>
+                            <span class="summary-hint">Current allowance set</span>
+                        </div>
+                    </div>
+
+                    <!-- Summary Card 2: Total Expenses -->
+                    <div class="summary-card card-expenses">
+                        <div class="summary-icon">💸</div>
+                        <div class="summary-info">
+                            <span class="summary-label">2. Total Expenses</span>
+                            <h3 class="summary-value" id="kpi-total-expenses">₹0.00</h3>
+                            <span class="summary-hint" id="kpi-expenses-count">0 recorded items</span>
+                        </div>
+                    </div>
+
+                    <!-- Summary Card 3: Remaining Balance -->
+                    <div class="summary-card card-balance" id="summary-card-balance">
+                        <div class="summary-icon" id="balance-icon">⚖️</div>
+                        <div class="summary-info">
+                            <div class="balance-card-header">
+                                <span class="summary-label">3. Remaining Balance</span>
+                                <span id="balance-badge" class="badge-balance-status">Safe Balance</span>
+                            </div>
+                            <h3 class="summary-value" id="kpi-remaining-balance">₹0.00</h3>
+                            <span class="summary-hint" id="kpi-balance-status">Available − Total Expenses</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================================================================
+                 SECTION: SMART ALLOWANCE SURVIVAL PREDICTOR
+                 ========================================================================= -->
+            <section class="card predictor-section" id="allowance-predictor-section" aria-labelledby="predictor-heading">
+                <div class="card-header predictor-card-header">
+                    <div class="card-title-group">
+                        <span class="card-icon">🔮</span>
+                        <div>
+                            <h2 id="predictor-heading" class="card-title">Smart Allowance Survival Predictor</h2>
+                            <p class="section-card-subtitle">Plan ahead, track your countdown, and ensure your money lasts until your next allowance.</p>
+                        </div>
+                    </div>
+                    <div class="future-allowance-badge" id="future-allowance-badge">
+                        <span class="badge-icon">📅</span>
+                        <span id="future-allowance-text">No Upcoming Allowance Scheduled</span>
+                    </div>
+                </div>
+
+                <div class="predictor-content">
+                    <!-- Row 1: Allowance Planning Inputs Form -->
+                    <form id="allowance-form" class="allowance-form" novalidate>
+                        <div class="allowance-inputs-grid">
+                            <div class="form-group" id="group-allowance-date">
+                                <label for="input-allowance-date" class="form-label">
+                                    Next Allowance Date <span class="required-star">*</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">📅</span>
+                                    <input 
+                                        type="date" 
+                                        id="input-allowance-date" 
+                                        class="form-input" 
+                                        required
+                                    >
+                                </div>
+                                <p class="error-message" id="error-allowance-date" role="alert"></p>
+                            </div>
+
+                            <div class="form-group" id="group-allowance-amount">
+                                <label for="input-allowance-amount" class="form-label">
+                                    Expected Amount (₹) <span class="required-star">*</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon currency-prefix">₹</span>
+                                    <input 
+                                        type="number" 
+                                        id="input-allowance-amount" 
+                                        class="form-input" 
+                                        placeholder="e.g. 3000" 
+                                        min="0" 
+                                        step="0.01" 
+                                        required
+                                    >
+                                </div>
+                                <p class="error-message" id="error-allowance-amount" role="alert"></p>
+                            </div>
+
+                            <div class="form-group allowance-submit-group">
+                                <label class="form-label visually-hidden">Save Plan Action</label>
+                                <button type="submit" class="btn btn-primary btn-allowance-save" id="btn-save-allowance">
+                                    <span class="btn-icon">💾</span> <span id="btn-save-allowance-text">Save Plan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Row 2: Four Prediction Metric Cards -->
+                    <div class="predictor-cards-grid">
+                        <!-- Metric Card 1: Days Remaining -->
+                        <div class="pred-card card-days">
+                            <div class="pred-card-icon">⏳</div>
+                            <div class="pred-card-info">
+                                <span class="pred-label">Days Remaining</span>
+                                <h3 class="pred-value" id="pred-days-remaining">--</h3>
+                                <span class="pred-subtext" id="pred-days-sub">Until next allowance</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric Card 2: Recommended Daily Spending Limit -->
+                        <div class="pred-card card-limit">
+                            <div class="pred-card-icon">🎯</div>
+                            <div class="pred-card-info">
+                                <span class="pred-label">Daily Spending Limit</span>
+                                <h3 class="pred-value" id="pred-daily-limit">₹0.00</h3>
+                                <span class="pred-subtext" id="pred-limit-sub">Spendable ÷ Days</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric Card 3: Recent Average Daily Spending -->
+                        <div class="pred-card card-avg">
+                            <div class="pred-card-icon">📊</div>
+                            <div class="pred-card-info">
+                                <span class="pred-label">Recent Daily Spending</span>
+                                <h3 class="pred-value" id="pred-avg-spending">--</h3>
+                                <span class="pred-subtext" id="pred-avg-sub">From actual expense history</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric Card 4: Projected Balance Before Next Allowance -->
+                        <div class="pred-card card-proj" id="pred-card-projected">
+                            <div class="pred-card-icon" id="pred-proj-icon">🔮</div>
+                            <div class="pred-card-info">
+                                <span class="pred-label">Projected Balance</span>
+                                <h3 class="pred-value" id="pred-projected-balance">--</h3>
+                                <span class="pred-subtext" id="pred-proj-sub">Before next allowance deposit</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Dynamic Smart Advice Banner -->
+                    <div id="predictor-advice-box" class="predictor-advice-card status-neutral" role="status">
+                        <div class="advice-header">
+                            <span class="advice-icon" id="pred-advice-icon">💡</span>
+                            <strong class="advice-title" id="pred-advice-title">Allowance Survival Analysis</strong>
+                        </div>
+                        <p class="advice-message" id="pred-advice-message">Set your next expected allowance date and amount above to view survival projections.</p>
+                        <p class="advice-subtext" id="pred-advice-subtext">Calculated using your current spendable balance (₹0.00) and recorded daily spending rate.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================================================================
+                 SECTION 1: STUDENTSPEND AI COACH & SAVINGS SUGGESTIONS
+                 ========================================================================= -->
+            <section class="card ai-coach-section" id="ai-coach-section" aria-labelledby="ai-coach-heading">
+                <div class="card-header ai-coach-card-header">
+                    <div class="card-title-group">
+                        <span class="card-icon">🤖</span>
+                        <div>
+                            <h2 id="ai-coach-heading" class="card-title">StudentSpend AI Coach & Smart Suggestions</h2>
+                            <p class="section-card-subtitle">Personalized financial wellness advice, burn-rate pacing alerts, and college money-saving strategies.</p>
+                        </div>
+                    </div>
+                    <div class="ai-engine-badge-wrapper">
+                        <span id="ai-engine-badge" class="badge-ai-mode badge-ai-fallback">
+                            <span class="badge-dot"></span>
+                            <span id="ai-engine-badge-text">Rule-Based Financial Engine</span>
+                        </span>
+                        <button id="btn-refresh-ai-insights" class="btn btn-outline btn-sm" title="Refresh AI Insights">
+                            <span>🔄</span> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ai-coach-content">
+                    <!-- AI Pacing Diagnostic Banner -->
+                    <div id="ai-pacing-banner" class="ai-diagnostic-banner alert-box alert-info">
+                        <div class="ai-banner-icon" id="ai-banner-icon">💡</div>
+                        <div class="ai-banner-content">
+                            <div class="ai-banner-header">
+                                <strong class="ai-banner-title" id="ai-banner-title">AI Pacing Analysis</strong>
+                                <span class="badge-pacing" id="ai-pacing-status-badge">Analyzing...</span>
+                            </div>
+                            <p id="ai-coach-message" class="ai-banner-text">Loading personalized financial intelligence based on your spending...</p>
+                        </div>
+                    </div>
+
+                    <!-- Personalized Saving Suggestions Grid -->
+                    <div class="ai-suggestions-container">
+                        <div class="ai-suggestions-header">
+                            <h3 class="ai-suggestions-title">💡 Personalized Student Saving Recommendations</h3>
+                            <span class="ai-suggestions-caption" id="ai-top-category-note">Tailored to your actual spending categories</span>
+                        </div>
+                        <div class="ai-suggestions-grid" id="ai-suggestions-grid">
+                            <div class="suggestion-card loading-card">
+                                <div class="suggestion-icon">⏳</div>
+                                <div class="suggestion-info">
+                                    <h4 class="suggestion-title">Calculating Smart Tips...</h4>
+                                    <p class="suggestion-text">Analyzing your category spending patterns.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================================================================
+                 SECTION 2: STUDENTSPEND AI CHAT ASSISTANT
+                 ========================================================================= -->
+            <section class="card ai-chat-section" id="ai-chat-section" aria-labelledby="ai-chat-heading">
+                <div class="card-header ai-chat-card-header">
+                    <div class="card-title-group">
+                        <span class="card-icon">💬</span>
+                        <div>
+                            <h2 id="ai-chat-heading" class="card-title">StudentSpend AI Chat Assistant</h2>
+                            <p class="section-card-subtitle">Ask questions about your budget, daily spending limits, or check if an expense fits safely.</p>
+                        </div>
+                    </div>
+                    <span class="chat-status-pill">
+                        <span class="live-indicator"></span> Verified Financial Data
+                    </span>
+                </div>
+
+                <div class="ai-chat-container">
+                    <!-- Quick Prompt Pills -->
+                    <div class="chat-prompt-chips" aria-label="Suggested questions">
+                        <span class="chips-label">Quick ask:</span>
+                        <button type="button" class="prompt-chip" data-query="Can I afford to spend ₹200 today?">
+                            Can I afford to spend ₹200 today?
+                        </button>
+                        <button type="button" class="prompt-chip" data-query="How can I make my money last another 7 days?">
+                            How to make money last 7 days?
+                        </button>
+                        <button type="button" class="prompt-chip" data-query="Which category am I overspending on?">
+                            Which category am I overspending on?
+                        </button>
+                        <button type="button" class="prompt-chip" data-query="What is my safe daily spending limit?">
+                            What is my safe daily limit?
+                        </button>
+                    </div>
+
+                    <!-- Chat Message Feed -->
+                    <div class="chat-messages-box" id="ai-chat-messages" role="log" aria-live="polite">
+                        <!-- Initial greeting -->
+                        <div class="chat-msg msg-ai">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-bubble">
+                                <div class="bubble-header">
+                                    <span class="sender-name">StudentSpend AI</span>
+                                    <span class="msg-time" id="chat-welcome-time">Just now</span>
+                                </div>
+                                <div class="bubble-content">
+                                    <p>Hey there! 👋 I'm your college financial wellness assistant. I track your actual balance, safety buffer, and days until your next allowance to keep you financially secure.</p>
+                                    <p>Try asking me: <em>"Can I afford to spend ₹200 today?"</em> or click one of the quick buttons above!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typing / Thinking Indicator -->
+                    <div id="ai-typing-indicator" class="chat-typing hidden" aria-hidden="true">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-text">StudentSpend AI is analyzing your finances...</span>
+                    </div>
+
+                    <!-- Chat Input Bar -->
+                    <form id="ai-chat-form" class="chat-input-form" novalidate>
+                        <div class="chat-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="ai-chat-input" 
+                                class="form-input chat-input" 
+                                placeholder="Ask about spending, daily limits, or survival tips (e.g. Can I afford ₹150 for lunch?)..." 
+                                autocomplete="off"
+                                maxlength="200"
+                                required
+                            >
+                            <button type="submit" id="btn-chat-send" class="btn btn-primary btn-chat-send" title="Send message">
+                                <span>Send</span> <span>🚀</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Main Dashboard 2-Column Grid -->
+            <div class="dashboard-grid">
+                
+                <!-- Left Column: Add Expenses & Spending Insights -->
+                <div class="dashboard-column column-left">
+                    
+                    <!-- B. Add Expenses Form Card -->
+                    <section class="card form-card" aria-labelledby="form-heading">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <span class="card-icon">➕</span>
+                                <h2 id="form-heading" class="card-title">B. Add Expense</h2>
+                            </div>
+                            <span class="card-badge">Instant Sync</span>
+                        </div>
+
+                        <form id="expense-form" class="expense-form" novalidate>
+                            <!-- Expense Name -->
+                            <div class="form-group" id="group-name">
+                                <label for="expense-name" class="form-label">
+                                    Expense Name <span class="required-star">*</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">🏷️</span>
+                                    <input 
+                                        type="text" 
+                                        id="expense-name" 
+                                        class="form-input" 
+                                        placeholder="e.g. Canteen Lunch, Bus Pass, Notebook"
+                                        autocomplete="off"
+                                        maxlength="60"
+                                        required
+                                    >
+                                </div>
+                                <p class="error-message" id="error-name" role="alert"></p>
+                            </div>
+
+                            <!-- Amount & Date (2 columns) -->
+                            <div class="form-row">
+                                <div class="form-group" id="group-amount">
+                                    <label for="expense-amount" class="form-label">
+                                        Amount (₹) <span class="required-star">*</span>
+                                    </label>
+                                    <div class="input-with-icon">
+                                        <span class="input-icon currency-prefix">₹</span>
+                                        <input 
+                                            type="number" 
+                                            id="expense-amount" 
+                                            class="form-input" 
+                                            placeholder="0.00" 
+                                            step="0.01" 
+                                            min="0.01"
+                                            required
+                                        >
+                                    </div>
+                                    <p class="error-message" id="error-amount" role="alert"></p>
+                                </div>
+
+                                <div class="form-group" id="group-date">
+                                    <label for="expense-date" class="form-label">Expense Date</label>
+                                    <div class="input-with-icon">
+                                        <span class="input-icon">📅</span>
+                                        <input 
+                                            type="date" 
+                                            id="expense-date" 
+                                            class="form-input"
+                                        >
+                                    </div>
+                                    <p class="error-message" id="error-date" role="alert"></p>
+                                </div>
+                            </div>
+
+                            <!-- Category Selector -->
+                            <div class="form-group" id="group-category">
+                                <label for="expense-category" class="form-label">
+                                    Category <span class="required-star">*</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">📂</span>
+                                    <select id="expense-category" class="form-input form-select" required>
+                                        <option value="" disabled selected>-- Select a Category --</option>
+                                        <option value="food">🍔 Food</option>
+                                        <option value="travel">🚌 Travel</option>
+                                        <option value="education">📚 Education</option>
+                                        <option value="shopping">🛍️ Shopping</option>
+                                        <option value="entertainment">🎉 Entertainment</option>
+                                        <option value="bills">💡 Bills</option>
+                                        <option value="other">📦 Other</option>
+                                    </select>
+                                </div>
+                                <p class="error-message" id="error-category" role="alert"></p>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-block" id="btn-submit">
+                                    <span class="btn-icon">➕</span> Add Expense
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- E. Spending Insights & Chart -->
+                    <section class="card chart-card" aria-labelledby="insights-heading">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <span class="card-icon">📈</span>
+                                <h2 id="insights-heading" class="card-title">E. Spending Insights</h2>
+                            </div>
+                        </div>
+
+                        <div class="chart-content">
+                            <!-- Budget Consumed Meter -->
+                            <div class="budget-meter-box">
+                                <div class="budget-meter-header">
+                                    <span class="budget-meter-label">Percentage of Available Money Spent:</span>
+                                    <span class="budget-meter-value" id="budget-spent-percent">0%</span>
+                                </div>
+                                <div class="cat-progress-bg">
+                                    <div class="cat-progress-bar" id="budget-progress-bar" style="width: 0%; background-color: var(--primary);"></div>
+                                </div>
+                                <p class="budget-meter-hint" id="budget-meter-hint">Set available money to track allowance consumption.</p>
+                            </div>
+
+                            <!-- Custom Canvas Donut Chart -->
+                            <div class="chart-canvas-container">
+                                <canvas id="category-chart" width="280" height="280" aria-label="Category Spending Chart" role="img"></canvas>
+                                <div id="chart-empty-state" class="chart-empty-state">
+                                    <span class="chart-empty-icon">📊</span>
+                                    <p>No expenses to chart yet</p>
+                                </div>
+                            </div>
+
+                            <!-- Category Breakdown Bars List -->
+                            <div class="category-breakdown-list" id="category-breakdown-list">
+                                <!-- Populated dynamically by app.js -->
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Right Column: D. Expense History -->
+                <div class="dashboard-column column-right">
+                    <section class="card table-card" aria-labelledby="history-heading">
+                        <div class="card-header table-card-header">
+                            <div class="card-title-group">
+                                <span class="card-icon">📋</span>
+                                <h2 id="history-heading" class="card-title">D. Expense History</h2>
+                            </div>
+                            <div class="table-actions">
+                                <button id="btn-clear-all" class="btn btn-danger-outline btn-sm" title="Clear all recorded expenses">
+                                    <span class="btn-icon">🗑️</span> Clear All
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search and Category Filters -->
+                        <div class="filters-bar">
+                            <div class="search-input-wrapper">
+                                <span class="search-icon">🔍</span>
+                                <input 
+                                    type="text" 
+                                    id="filter-search" 
+                                    class="form-input search-input" 
+                                    placeholder="Search by expense name..."
+                                    aria-label="Search expenses"
+                                >
+                            </div>
+
+                            <div class="filter-category-wrapper">
+                                <select id="filter-category" class="form-input form-select filter-select" aria-label="Filter by category">
+                                    <option value="all">All Categories</option>
+                                    <option value="food">🍔 Food</option>
+                                    <option value="travel">🚌 Travel</option>
+                                    <option value="education">📚 Education</option>
+                                    <option value="shopping">🛍️ Shopping</option>
+                                    <option value="entertainment">🎉 Entertainment</option>
+                                    <option value="bills">💡 Bills</option>
+                                    <option value="other">📦 Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Expenses List / Table -->
+                        <div class="table-responsive">
+                            <table class="expenses-table" id="expenses-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="th-name">Expense Name</th>
+                                        <th scope="col" class="th-category">Category</th>
+                                        <th scope="col" class="th-date">Date</th>
+                                        <th scope="col" class="th-amount text-right">Amount (₹)</th>
+                                        <th scope="col" class="th-action text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expenses-tbody">
+                                    <!-- Populated dynamically by app.js -->
+                                </tbody>
+                            </table>
+
+                            <!-- Empty State View -->
+                            <div id="table-empty-state" class="empty-state">
+                                <div class="empty-illustration">🧾</div>
+                                <h3 class="empty-title">No expenses recorded yet</h3>
+                                <p class="empty-desc">Add your first expense or load sample student transactions to view history and charts.</p>
+                                <button id="btn-empty-load-sample" class="btn btn-primary btn-sm">
+                                    💡 Load Sample Student Expenses
+                                </button>
+                            </div>
+
+                            <!-- No Filter Results State View -->
+                            <div id="table-no-results-state" class="empty-state hidden">
+                                <div class="empty-illustration">🔍</div>
+                                <h3 class="empty-title">No matching expenses found</h3>
+                                <p class="empty-desc">Try modifying your search keywords or category filter.</p>
+                                <button id="btn-reset-filters" class="btn btn-outline btn-sm">
+                                    Reset Filters
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Table Footer Stats -->
+                        <div class="table-footer">
+                            <span id="showing-count" class="footer-count">Showing 0 of 0 expenses</span>
+                            <div class="footer-total">
+                                <span>Filtered Total:</span>
+                                <strong id="filtered-total-amount">₹0.00</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Persistence Info Banner -->
+                    <div class="persistence-info-card">
+                        <span class="persistence-icon">💾</span>
+                        <div class="persistence-text">
+                            <strong>Local Browser Persistence & Alerts:</strong>
+                            <p>Available money, minimum balance buffer, and expense records are stored in this browser's <code>localStorage</code>. Browser notifications require HTTPS or localhost, and this tab must be running for client-side monitoring. In-app alerts function unconditionally.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal for Clear All -->
+    <div id="clear-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-icon-warning">⚠️</div>
+                <h3 id="modal-title" class="modal-title">Clear All Expenses?</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete all recorded expenses? This action <strong>cannot be undone</strong>.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-cancel" class="btn btn-outline">Cancel</button>
+                <button id="btn-modal-confirm" class="btn btn-danger">Yes, Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notifications Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/tracker.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
