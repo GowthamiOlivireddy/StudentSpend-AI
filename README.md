@@ -1,4 +1,5 @@
-# 🎓 Student Expense Tracker & Financial Dashboard
+
+# 🎓 StudentSpend AI — Student Expense Tracker
 
 A modern, responsive, and functional personal expense tracking and budgeting web application designed specifically for college students.
 
@@ -146,3 +147,5 @@ student-expense-tracker/
     ├── server.test.js              # Integration tests for HTML structure & HTTP server
     └── verification_scenarios.js   # Script running user-requested verification scenarios
 ```
+
+
